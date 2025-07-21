@@ -10,9 +10,9 @@ public class Main {
 
         MenuItem[] menu = new MenuItem[4];
         menu[0] = new MenuItem("ShackBurger", 6.9f, "토마토, 양상추, 쉑소스가 토핑된 치즈버거");
-        menu[1] = new MenuItem("ShackBurger", 8.9f, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
-        menu[2] = new MenuItem("ShackBurger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
-        menu[3] = new MenuItem("ShackBurger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거");
+        menu[1] = new MenuItem("SmokeShack", 8.9f, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
+        menu[2] = new MenuItem("Cheeseburger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
+        menu[3] = new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거");
 
         while (flag) {
             System.out.println("[ SHAKESHACK MENU ]");
@@ -28,7 +28,11 @@ public class Main {
 
             System.out.println();
 
-            if (selectNum == 0) {
+            if (selectNum > 0) {
+                MenuItem selectedMenu = menu[selectNum - 1];
+                System.out.println("주문한 햄버거 이름 : " + selectedMenu.getName() + " / " + selectedMenu.getDescription());
+                System.out.println("가격 : " + selectedMenu.getPrice());
+            } else if (selectNum == 0) {
                 System.out.println("프로그램을 종료합니다.");
                 flag = false;
             }
