@@ -17,10 +17,10 @@ public class Main {
             menuItems.add(new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
             System.out.println("[ SHAKESHACK MENU ]");
-            int num = 1;
+            int num = 0;
 
             for (MenuItem item : menuItems) {
-                System.out.print(num++ + ". " + item.getName() + "\t");
+                System.out.print(++num + ". " + item.getName() + "\t");
                 System.out.print("| W " + item.getPrice() + "\t");
                 System.out.print("| " + item.getDescription() + "\n");
             }
