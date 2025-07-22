@@ -10,14 +10,12 @@ public class Kiosk {
     Scanner sc = new Scanner(System.in);
     private final List<MenuItem> menuItems = new ArrayList<>();
     private final List<MenuItem> selectedMenuItems = new ArrayList<>();
+    private final List<Menu> menus;
     boolean flag = true;
 
-    // 키오스크 생성시 기본 메뉴 리스트 생성
-    public Kiosk() {
-        menuItems.add(new MenuItem("ShackBurger", 6.9f, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("SmokeShack", 8.9f, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Cheeseburger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거"));
+    // 키오스크 생성자 -> 각 카테고리별 메뉴가 담긴 리스트 불러오기
+    public Kiosk(List<Menu> menus) {
+        this.menus = menus;
     }
 
     // menuItems 리스트를 반복문으로 돌아가며 출력
