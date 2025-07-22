@@ -1,5 +1,6 @@
 package com.example.kiosk.Lv5;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Menu {
@@ -14,6 +15,6 @@ public class Menu {
 
     // Getter
     public String getCategory() { return category; }
-    public List<MenuItem> getMenuItems() { return menuItems; }
+    public List<MenuItem> getMenuItems() { return Collections.unmodifiableList(menuItems); }
     public MenuItem getMenuItem(int num) { return getMenuItems().get(num); }
 }
