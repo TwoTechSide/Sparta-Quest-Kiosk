@@ -5,7 +5,7 @@ import java.util.List;
 public class Menu {
 
     private String category;
-    private List<MenuItem> menuItems;
+    private final List<MenuItem> menuItems;
 
     public Menu(String category, List<MenuItem> menuItems) {
         this.category = category;
