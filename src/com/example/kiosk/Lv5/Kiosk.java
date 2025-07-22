@@ -33,9 +33,9 @@ public class Kiosk {
 
         System.out.println("[ " +  category + " MENU ]");
 
-        for (int i = 1; i <= menuItems.size(); i++) {
-            MenuItem menuItem = menuItems.get(i - 1);
-            System.out.println(i + ". " + menuItem.toString());
+        for (int i = 0; i < menuItems.size(); i++) {
+            MenuItem menuItem = menuItems.get(i);
+            System.out.println((i+1) + ". " + menuItem.toString());
         }
         System.out.println("0. 뒤로가기");
     }
@@ -52,22 +52,32 @@ public class Kiosk {
                 selectNum = sc.nextInt();
                 Menu selectedMenu;
 
+                // 0 : 키오스크 종료
+                // 1 ~ n : menus : List<Menu>에서 선택
+                // 나머지 : InputMismatchException 으로 예외 처리
                 if (selectNum == 0) {
                     flag = false;
                     break;
-                } else {
+                } else if (selectNum < menus.size()) {
                     selectedMenu = menus.get(selectNum-1);
+                } else {
+                    throw new InputMismatchException();
                 }
 
                 // 메뉴 선택
                 printMenuItems(selectedMenu);
                 selectNum = sc.nextInt();
 
+                // 0 : 카테고리 선택 화면으로 돌아가기
+                // 1 ~ n : selectedMenu : List<Menu>에서 선택
+                // 나머지 : InputMismatchException 으로 예외 처리
                 if (selectNum == 0) {
                     continue;
-                } else {
+                } else if (selectNum < selectedMenu.getMenuItems().size()) {
                     MenuItem selectedMenuItem = selectedMenu.getMenuItem(selectNum-1);
                     selectedMenuItems.add(selectedMenuItem);
+                } else {
+                    throw new InputMismatchException();
                 }
 
                 // 선택한 메뉴들 출력
@@ -78,7 +88,7 @@ public class Kiosk {
             // 메뉴에 있는 숫자를 벗어난 값을 받는 경우(=IndexOutOfBoundsException), 정수가 아닌 값을 받는 경우(=InputMismatchException) 예외 처리
             catch (IndexOutOfBoundsException e) {
                 System.out.println("[오류] : 메뉴를 조회하는데 실패하였습니다. 다시 시도해주세요.");
-            } catch (InputMismatchException e) {        // [catch] - Scanner로 받은 값이 숫자가 아닌 경우
+            } catch (InputMismatchException e) {
                 System.out.println("[오류] : 잘못된 입력입니다.");
                 sc.next();
             }
