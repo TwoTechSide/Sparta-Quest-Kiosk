@@ -1,6 +1,7 @@
 package com.example.kiosk.Lv3;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,39 +33,57 @@ public class Kiosk {
 
     // 선택한 메뉴 목록과 총 합계 출력
     private void printSelectedMenuItems() {
-        int menuCnt = selectedMenuItems.size();
-        float sumPrice = 0;
+        int selectedMenuCount = selectedMenuItems.size();
 
-        System.out.print("선택한 메뉴 : ");
+        // 선택한 메뉴가 1개 이상 있는 경우 실행
+        if (selectedMenuCount > 0) {
+            float sumPrice = 0;
 
-        for (int i = 0; i < menuCnt; i++) {
-            MenuItem menuItem = selectedMenuItems.get(i);
-            System.out.print(menuItem.getName() + " ");
-            sumPrice += menuItem.getPrice();
+            System.out.print("[선택한 메뉴 목록] : ");
+
+            for (int i = 0; i < selectedMenuCount; i++) {
+                MenuItem menuItem = selectedMenuItems.get(i);
+                System.out.print(menuItem.getName() + " ");
+                sumPrice += menuItem.getPrice();
+            }
+
+            System.out.println();
+            System.out.println("가격 총합 : " + sumPrice);
         }
-
-        System.out.println();
-        System.out.println("가격 총합 : " + sumPrice);
     }
 
     // 키오스크 시작 함수
     public void start() {
         while (flag) {
-            // 1. 메뉴 출력
+            // 메뉴 출력
             printMenuItems();
             System.out.println("0. 종료");
 
-            // 2. 입력을 받으며 메뉴 선택 및 종료
-            System.out.print("입력 : ");
-            int selectNum = sc.nextInt();
+            // 입력을 받으며 메뉴 선택 및 종료
+            try {
+                System.out.print("입력 : ");
+                int selectNum = sc.nextInt();
 
-            if (selectNum > 0) {
-                // 선택 목록에 메뉴 추가, 선택한 메뉴 목록 출력
-                selectedMenuItems.add(menuItems.get(selectNum - 1));
+                // 선택 목록에 메뉴 추가,
+                if (selectNum > 0 && selectNum <= menuItems.size())
+                    selectedMenuItems.add(menuItems.get(selectNum - 1));
+
+                // '0; 입력시 start() 함수를 종료하며 키오스크 종료
+                else if (selectNum == 0) {
+                    // 함수 종료
+                    flag = false;
+                    break;
+                } else {
+                    System.out.println("[주의] : 메뉴에 없는 숫자입니다.");
+                }
+            } catch (InputMismatchException e) {        // [catch] - Scanner로 받은 값이 숫자가 아닌 경우
+                System.out.println("[오류] : 잘못된 입력입니다.");
+                sc.next();
+            } catch (IndexOutOfBoundsException e) {     // [catch] - 만약 입력받은 index 값으로 menuItem 리스트를 조회할 수 없는 경우
+                System.out.println("[오류] : 메뉴를 조회하는데 실패하였습니다.");
+            } finally {
+                // 선택한 메뉴 목록 출력
                 printSelectedMenuItems();
-            } else if (selectNum == 0) {
-                // 함수 종료
-                break;
             }
         }
     }
