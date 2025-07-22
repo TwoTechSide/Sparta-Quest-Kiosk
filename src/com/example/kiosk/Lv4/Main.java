@@ -38,6 +38,7 @@ public class Main {
 
         // 각 카테고리별 메뉴가 담긴 메뉴 리스트를 키오스크 생성자에 전달
         Kiosk kiosk = new Kiosk(menus);
+        kiosk.start();
 
         // 만약 키오스크가 종료되는 경우
         System.out.println("키오스크를 종료합니다.");

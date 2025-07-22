@@ -18,6 +18,16 @@ public class Kiosk {
         this.menus = menus;
     }
 
+    // 카테고리 선택 화면 출력
+    private void printCategories() {
+        System.out.println("[ MAIN MENU ]");
+        for (int i = 0; i < menus.size(); i++) {
+            Menu menu = menus.get(i);
+            System.out.println((i+1) + ". " + menu.getCategory());
+        }
+        System.out.println("0. 종료");
+    }
+
     // menuItems 리스트를 반복문으로 돌아가며 출력
     private void printMenuItems() {
         for (int i = 1; i <= menuItems.size(); i++) {
@@ -53,6 +63,9 @@ public class Kiosk {
     // 키오스크 시작 함수
     public void start() {
         while (flag) {
+            // 카테고리 출력
+            printCategories();
+
             // 메뉴 출력
             printMenuItems();
             System.out.println("0. 종료");
