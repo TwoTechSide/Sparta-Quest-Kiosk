@@ -15,4 +15,5 @@ public class Menu {
     // Getter
     public String getCategory() { return category; }
     public List<MenuItem> getMenuItems() { return menuItems; }
+    public MenuItem getMenuItem(int num) { return getMenuItems().get(num); }
 }

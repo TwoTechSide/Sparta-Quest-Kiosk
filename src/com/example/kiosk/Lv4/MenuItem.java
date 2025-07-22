@@ -1,9 +1,9 @@
 package com.example.kiosk.Lv4;
 
 public class MenuItem {
-    private String name;
-    private float price;
-    private String description;
+    private final String name;
+    private final float price;
+    private final String description;
 
     MenuItem(String name, float price, String description) {
         this.name = name;
@@ -11,7 +11,9 @@ public class MenuItem {
         this.description = description;
     }
 
-    public String getName() { return name; }
-    public float getPrice() { return price; }
-    public String getDescription() { return description; }
+    // 메뉴 출력시 toString() 오버라이딩
+    @Override
+    public String toString() {
+        return String.format("%-15s | W %.1f | %s", name, price, description);
+    }
 }

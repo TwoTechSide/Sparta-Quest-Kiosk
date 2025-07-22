@@ -1,13 +1,15 @@
 package com.example.kiosk.Lv4;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
 
-    Scanner sc = new Scanner(System.in);
     private final List<Menu> menus;
-    boolean flag = true;
+    private final List<MenuItem> selectedMenuItems = new ArrayList<>();
+    private boolean flag = true;
 
     // 키오스크 생성자 -> 각 카테고리별 메뉴가 담긴 리스트 불러오기
     public Kiosk(List<Menu> menus) {
@@ -33,21 +35,53 @@ public class Kiosk {
 
         for (int i = 1; i <= menuItems.size(); i++) {
             MenuItem menuItem = menuItems.get(i - 1);
-            System.out.print(i + ". " + menuItem.getName() + "\t");
-            System.out.print("| W " + menuItem.getPrice() + "\t");
-            System.out.print("| " + menuItem.getDescription() + "\n");
+            System.out.println(i + ". " + menuItem.toString());
         }
         System.out.println("0. 뒤로가기");
     }
 
     // 키오스크 시작 함수
     public void start() {
-        while (flag) {
-            printCategories();                  // 카테고리 출력
-            int num = sc.nextInt();             /* [임시 값 입력] */
+        Scanner sc = new Scanner(System.in);
+        int selectNum;
 
-            printMenuItems(menus.get(num-1));   // 메뉴 출력
-            flag = false;                       /* [임시 테스트 종료시 반복문 탈출] */
+        while (flag) {
+            try {
+                // 카테고리 선택
+                printCategories();
+                selectNum = sc.nextInt();
+                Menu selectedMenu;
+
+                if (selectNum == 0) {
+                    flag = false;
+                    break;
+                } else {
+                    selectedMenu = menus.get(selectNum-1);
+                }
+
+                // 메뉴 선택
+                printMenuItems(selectedMenu);
+                selectNum = sc.nextInt();
+
+                if (selectNum == 0) {
+                    continue;
+                } else {
+                    MenuItem selectedMenuItem = selectedMenu.getMenuItem(selectNum-1);
+                    selectedMenuItems.add(selectedMenuItem);
+                }
+
+                // 선택한 메뉴들 출력
+                System.out.println("------- 선택한 메뉴 -------");
+                for (MenuItem menuItem : selectedMenuItems) { System.out.println(menuItem.toString()); }
+                System.out.println("-------------------------");
+            }
+            // 메뉴에 있는 숫자를 벗어난 값을 받는 경우(=IndexOutOfBoundsException), 정수가 아닌 값을 받는 경우(=InputMismatchException) 예외 처리
+            catch (IndexOutOfBoundsException e) {
+                System.out.println("[오류] : 메뉴를 조회하는데 실패하였습니다. 다시 시도해주세요.");
+            } catch (InputMismatchException e) {        // [catch] - Scanner로 받은 값이 숫자가 아닌 경우
+                System.out.println("[오류] : 잘못된 입력입니다.");
+                sc.next();
+            }
         }
     }
 }
