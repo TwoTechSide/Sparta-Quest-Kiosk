@@ -41,6 +41,7 @@ public class Kiosk {
 
             System.out.print("[선택한 메뉴 목록] : ");
 
+            // 선택한 메뉴를 List에 저장하며 합계 누적
             for (int i = 0; i < selectedMenuCount; i++) {
                 MenuItem menuItem = selectedMenuItems.get(i);
                 System.out.print(menuItem.getName() + " ");

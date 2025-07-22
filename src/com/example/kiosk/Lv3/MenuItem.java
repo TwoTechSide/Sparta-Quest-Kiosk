@@ -11,6 +11,7 @@ public class MenuItem {
         this.description = description;
     }
 
+    // Getter
     public String getName() { return name; }
     public float getPrice() { return price; }
     public String getDescription() { return description; }

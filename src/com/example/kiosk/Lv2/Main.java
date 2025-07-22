@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        // 기본 필드 생성
         Scanner sc = new Scanner(System.in);
         List<MenuItem> menuItems = new ArrayList<>();
         List<MenuItem> selectedMenuItems = new ArrayList<>();
@@ -17,10 +18,12 @@ public class Main {
         menuItems.add(new MenuItem("Cheeseburger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
         menuItems.add(new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
+        // 키오스크 반복 진행
         while (flag) {
             System.out.println("[ SHAKESHACK MENU ]");
-            int num = 0;
+            int num = 0;    // 메뉴 출력시 번호 지정
 
+            // 메뉴 정보 출력
             for (MenuItem item : menuItems) {
                 System.out.print(++num + ". " + item.getName() + "\t");
                 System.out.print("| W " + item.getPrice() + "\t");
@@ -29,6 +32,7 @@ public class Main {
 
             System.out.println("0. 종료");
 
+            // 만약 이미 선택한 메뉴가 있는 경우, 선택한 메뉴들과 합계 출력
             if (!selectedMenuItems.isEmpty()) {
                 System.out.print("선택한 메뉴 : ");
                 int menuCnt = selectedMenuItems.size();
@@ -44,6 +48,7 @@ public class Main {
                 System.out.println("가격 총합 : " + sumPrice);
             }
 
+            // 메뉴 재주문 또는 키오스크 종료에 해당하는 번호 입력
             System.out.print("입력 : ");
             int selectNum = sc.nextInt();
 
