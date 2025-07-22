@@ -31,9 +31,9 @@ public class Main {
 
         // <햄버거, 음료, 디저트> 통합 메뉴 리스트
         List<Menu> menus = Arrays.asList(
-                new Menu("Burger", burgerItems),
-                new Menu("Drink", drinkItems),
-                new Menu("Dessert", dessertItems)
+                new Menu("BURGERS", burgerItems),
+                new Menu("DRINKS", drinkItems),
+                new Menu("DESSERTS", dessertItems)
         );
 
         // 각 카테고리별 메뉴가 담긴 메뉴 리스트를 키오스크 생성자에 전달
