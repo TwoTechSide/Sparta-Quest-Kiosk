@@ -57,14 +57,8 @@ public class Kiosk {
                     // 입력값에 따라 프로그램을 종료하거나 특정 카테고리의 메뉴 선택으로 이동
                     selectNum = sc.nextInt();
 
-                    if (selectNum == 0) {
-                        flag = -1;
-                        break;
-                    }
-                    else if (selectNum <= menus.size()) {
-                        selectedMenu = menus.get(selectNum);
-                        flag = 1;
-                    }
+                    if (selectNum == 0) { flag = -1; break; }
+                    else if (selectNum <= menus.size()) { selectedMenu = menus.get(selectNum); flag = 1; }
                     else throw new InputMismatchException();
                 }
 
@@ -75,9 +69,9 @@ public class Kiosk {
                     if (selectedMenu != null) printMenuItems(selectedMenu);
                     else { flag = 0; continue; }
 
-                    // 0 : 카테고리 선택으로 이동
-                    // 메뉴 : 장바구니 추가 확인으로 이동
-                    // 그 외 : 잘못된 입력 예외 처리 -> 재확인
+                    // 0        : 카테고리 선택으로 이동
+                    // menuItem : 장바구니 추가 확인으로 이동
+                    // other    : 잘못된 입력 예외 처리 -> 재확인
                     selectNum = sc.nextInt();
 
                     if (selectNum == 0) flag = 1;
@@ -87,6 +81,8 @@ public class Kiosk {
 
                 // flag == 2 -> 장바구니 추가 확인
                 else if (flag == 2) {
+                    // 장바구니 추가 확인 화면 출력
+                    // 만약 메뉴 아이템 선택이 이루어지지 않는 버그가 발생하는 경우 처음부터 다시 진행
                     if (selectedMenuItem != null) {
                         String selectedMenuItemInfo = String.format("%s | W %.1f | %s", selectedMenuItem.getName(), selectedMenuItem.getPrice(), selectedMenuItem.getDescription());
                         System.out.println("선택한 메뉴: " + selectedMenuItemInfo);
@@ -95,9 +91,9 @@ public class Kiosk {
                     System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
                     System.out.println("1. 확인\t\t2.취소");
 
-                    // 1 : 장바구니에 추가
-                    // 2 : 장바구니 취소, 메뉴판으로 이동
-                    // 그 외 : 잘못된 입력이므로 다시 확인
+                    // 1        : 장바구니에 추가
+                    // 2        : 장바구니 취소, 메뉴판으로 이동
+                    // other    : 잘못된 입력이므로 다시 확인
                     selectNum = sc.nextInt();
 
                     if (selectNum == 1) { selectedMenuItems.add(selectedMenuItem); flag = 0; }
