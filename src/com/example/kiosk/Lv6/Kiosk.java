@@ -79,7 +79,14 @@ public class Kiosk {
 
                 // flag == 1 -> 메뉴 선택 화면 및 장바구니 추가 확인
                 else if (flag == 1) {
-                    Menu menu = selectedMenu.get();
+                    Menu menu;
+                    // Menu 객체를 Optional 에서 Get, 오류 발생시 예외 처리
+                    if (selectedMenu.isPresent()) {
+                        menu = selectedMenu.get();
+                    } else {
+                        throw new NullPointerException();
+                    }
+
                     printMenuItems(menu);
 
                     // 0        : 카테고리 선택으로 이동
@@ -147,6 +154,9 @@ public class Kiosk {
             } catch (InputMismatchException e) {
                 System.out.println("[오류] : 잘못된 입력입니다.");
                 sc.nextLine();
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+                System.out.println("[오류] : 예기치 못한 오류가 발생하였습니다. 다시 시도해주세요.");
             } finally {
                 System.out.println();
             }
