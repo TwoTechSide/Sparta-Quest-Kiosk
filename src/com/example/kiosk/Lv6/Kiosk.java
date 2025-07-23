@@ -73,7 +73,7 @@ public class Kiosk {
                     else {
                         // 만약 장바구니가 있을 경우, [ ORDER MENU ]의 Orders, Cancel 확인
                         if (!selectedMenuItems.isEmpty()) {
-                            if (selectNum == menus.size()+1) flag = -1;
+                            if (selectNum == menus.size()+1) flag = 3;
                             else if (selectNum == menus.size()+2) { selectedMenuItems.clear(); flag = 0; }
                         }
                         // 만약 장바구니가 없는 경우 예외 처리
@@ -117,6 +117,37 @@ public class Kiosk {
 
                     if (selectNum == 1) { selectedMenuItems.add(selectedMenuItem); flag = 0; }
                     else if (selectNum == 2) flag = 1;
+                    else throw new InputMismatchException();
+                }
+
+                // flag == 3 -> 장바구니 확인 후 주문
+                else if (flag == 3) {
+                    float totalPrice = 0;
+
+                    System.out.println("아래와 같이 주문하시겠습니까?");
+
+                    // 주문한 메뉴들 출력, 합계 계산
+                    System.out.println("\n[ Orders ]");
+                    for (MenuItem menuItem : selectedMenuItems) {
+                        System.out.println(menuItem.toString());
+                        totalPrice += menuItem.getPrice();
+                    }
+
+                    System.out.println("\n[ Total ]");
+                    System.out.printf("W %.1f\n", totalPrice);
+
+                    // 1 : 주문 선택시 합계를 출력하며 키오스크 종료
+                    // 2 : 메뉴판 선택시 다시 카테고리 선택으로 이동
+                    // other    : 잘못된 입력이므로 다시 확인
+                    System.out.println("\n1.주문\t\t2.메뉴판");
+                    selectNum = sc.nextInt();
+
+                    if (selectNum == 1) {
+                        System.out.printf("\n주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", totalPrice);
+                        flag = -1;
+                        break;
+                    }
+                    else if (selectNum == 2) flag = 0;
                     else throw new InputMismatchException();
                 }
             }
