@@ -19,8 +19,8 @@ public class Main {
         while (flag) {
             // 메뉴 목록 출력
             System.out.println("[ SHAKESHACK MENU ]");
-            for (int i = 1; i <= menu.length; i++) {
-                System.out.print(i + ". " + menu[i].getName() + "\t");
+            for (int i = 0; i < menu.length; i++) {
+                System.out.print((i+1) + ". " + menu[i].getName() + "\t");
                 System.out.print("| W " + menu[i].getPrice() + "\t");
                 System.out.print("| " + menu[i].getDescription() + "\n");
             }
