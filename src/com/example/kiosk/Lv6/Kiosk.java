@@ -144,7 +144,8 @@ public class Kiosk {
 
                     if (selectNum == 1) {
                         System.out.printf("\n주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", totalPrice);
-                        flag = -1;
+                        selectedMenuItems.clear();
+                        flag = 0;
                         break;
                     }
                     else if (selectNum == 2) flag = 0;
