@@ -119,15 +119,13 @@ public class Kiosk {
 
                 // flag == 2 -> 장바구니 확인 후 주문
                 else if (flag == 2) {
-                    List<MenuItem> cartMenuItems = cart.getMenuItemList();
                     float totalPrice = cart.getTotalPrice();
 
                     System.out.println("아래와 같이 주문하시겠습니까?");
 
                     // 주문한 메뉴 및 합계 출력
                     System.out.println("\n[ Orders ]");
-                    for (MenuItem menuItem : cartMenuItems)
-                        System.out.println(menuItem.toString());
+                    cart.printCartMenuItems();
 
                     System.out.println("\n[ Total ]");
                     System.out.printf("W %.1f\n", totalPrice);

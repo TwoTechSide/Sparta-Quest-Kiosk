@@ -90,7 +90,7 @@ public class Kiosk {
                 System.out.println("[오류] : 메뉴를 조회하는데 실패하였습니다. 다시 시도해주세요.");
             } catch (InputMismatchException e) {
                 System.out.println("[오류] : 잘못된 입력입니다.");
-                sc.next();
+                sc.nextLine();
             }
         }
     }

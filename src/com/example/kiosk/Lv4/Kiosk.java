@@ -33,9 +33,9 @@ public class Kiosk {
 
         System.out.println("[ " +  category + " MENU ]");
 
-        for (int i = 1; i <= menuItems.size(); i++) {
-            MenuItem menuItem = menuItems.get(i - 1);
-            System.out.println(i + ". " + menuItem.toString());
+        for (int i = 0; i < menuItems.size(); i++) {
+            MenuItem menuItem = menuItems.get(i);
+            System.out.println((i+1) + ". " + menuItem.toString());
         }
         System.out.println("0. 뒤로가기");
     }
@@ -80,7 +80,7 @@ public class Kiosk {
                 System.out.println("[오류] : 메뉴를 조회하는데 실패하였습니다. 다시 시도해주세요.");
             } catch (InputMismatchException e) {        // [catch] - Scanner로 받은 값이 숫자가 아닌 경우
                 System.out.println("[오류] : 잘못된 입력입니다.");
-                sc.next();
+                sc.nextLine();
             }
         }
     }
