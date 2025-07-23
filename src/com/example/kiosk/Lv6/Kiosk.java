@@ -18,12 +18,23 @@ public class Kiosk {
 
     // 카테고리 선택 화면 출력
     private void printCategories() {
+        int index = 1;
+
         System.out.println("[ MAIN MENU ]");
-        for (int i = 0; i < menus.size(); i++) {
-            Menu menu = menus.get(i);
-            System.out.println((i+1) + ". " + menu.getCategory());
+        while (index <= menus.size()) {
+            Menu menu = menus.get(index-1);
+            System.out.println(index + ". " + menu.getCategory());
+            index++;
         }
         System.out.println("0. 종료");
+
+        // 만약 장바구니에 메뉴가 있을 경우 -> 주문 또는 장바구니 취소
+        if (!selectedMenuItems.isEmpty()) {
+            System.out.println("\n[ ORDER MENU ]");
+            System.out.println(index + ". Orders\t| 장바구니를 확인 후 주문합니다.");
+            index++;
+            System.out.println(index + ". Cancel\t| 진행중인 주문을 취소합니다.");
+        }
     }
 
     // 선택된 카테고리의 메뉴 아이템들 출력
@@ -58,8 +69,16 @@ public class Kiosk {
                     selectNum = sc.nextInt();
 
                     if (selectNum == 0) { flag = -1; break; }
-                    else if (selectNum <= menus.size()) { selectedMenu = menus.get(selectNum); flag = 1; }
-                    else throw new InputMismatchException();
+                    else if (selectNum <= menus.size()) { selectedMenu = menus.get(selectNum-1); flag = 1; }
+                    else {
+                        // 만약 장바구니가 있을 경우, [ ORDER MENU ]의 Orders, Cancel 확인
+                        if (!selectedMenuItems.isEmpty()) {
+                            if (selectNum == menus.size()+1) flag = -1;
+                            else if (selectNum == menus.size()+2) { selectedMenuItems.clear(); flag = 0; }
+                        }
+                        // 만약 장바구니가 없는 경우 예외 처리
+                        else throw new InputMismatchException();
+                    }
                 }
 
                 // flag == 1 -> 메뉴 선택
@@ -74,7 +93,7 @@ public class Kiosk {
                     // other    : 잘못된 입력 예외 처리 -> 재확인
                     selectNum = sc.nextInt();
 
-                    if (selectNum == 0) flag = 1;
+                    if (selectNum == 0) flag = 0;
                     else if (selectNum <= selectedMenu.getMenuItems().size()) { selectedMenuItem = selectedMenu.getMenuItem(selectNum-1); flag = 2; }
                     else throw new InputMismatchException();
                 }
