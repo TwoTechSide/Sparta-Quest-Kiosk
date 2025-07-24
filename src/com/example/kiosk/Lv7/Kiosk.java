@@ -56,6 +56,7 @@ public class Kiosk {
         Scanner sc = new Scanner(System.in);
         int selectNum;
         Optional<Menu> selectedMenu = Optional.empty();
+        UserType userType;
 
         while (flag > -1) {
             try {
@@ -140,7 +141,19 @@ public class Kiosk {
                     selectNum = sc.nextInt();
 
                     if (selectNum == 1) {
-                        System.out.printf("\n주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", totalPrice);
+                        // 할인 정보 출력
+                        System.out.println("\n할인 정보를 입력해주세요.");
+                        for (int i = 0; i < UserType.values().length; i++) {
+                            String type = UserType.values()[i].getType();
+                            int discountPercent = (int) (UserType.values()[i].getDiscountRate() * 100);
+                            System.out.println((i+1) + ". " + type + "\t" + discountPercent + "%");
+                        }
+
+                        // 할인 정보 입력
+                        selectNum = sc.nextInt();
+                        userType = UserType.values()[selectNum - 1];
+
+                        System.out.printf("\n주문이 완료되었습니다. 금액은 W %.1f 입니다.\n", userType.getDiscountedPrice(totalPrice));
                         cart.clear();
                         flag = 0;
                     }
